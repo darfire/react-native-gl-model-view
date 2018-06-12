@@ -108,4 +108,9 @@ public class RNGLModelViewManager extends SimpleViewManager<RNGLModelView> {
   public void setModelTranslateZ(RNGLModelView view, @Nullable float translateZ) {
     view.setModelTranslateZ(translateZ);
   }
+
+  @ReactProp(name = "useFsPath")
+  public void setModelUseFsPath(RNGLModelView view, @Nullable boolean useFsPath) {
+    view.setModelUseFsPath(useFsPath);
+  }
 }

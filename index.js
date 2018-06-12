@@ -29,7 +29,9 @@ GLModelView.propTypes = {
 
   translateX: PropTypes.number,
   translateY: PropTypes.number,
-  translateZ: PropTypes.number
+  translateZ: PropTypes.number,
+
+  useFsPath: PropTypes.bool,
 };
 
 var RNGLModelView = requireNativeComponent('RNGLModelView', GLModelView);

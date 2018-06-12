@@ -12,6 +12,7 @@ import com.threed.jpct.SimpleVector;
 import com.threed.jpct.Texture;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.FileInputStream;
 import javax.annotation.Nullable;
 
 public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
@@ -29,6 +30,7 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
   private float mModelScaleX = 1;
   private float mModelScaleY = 1;
   private float mModelScaleZ = 1;
+  private boolean mModelUseFsPath = false;
 
   private SimpleVector mMeshTranslate = new SimpleVector();
 
@@ -145,6 +147,10 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
     updateModelTransform();
   }
 
+  public void setModelUseFsPath(@Nullable boolean useFsPath) {
+    mModelUseFsPath = useFsPath;
+  }
+
   private Object3D loadModel(String modelFileName) {
     String modelFileNameArray[] = modelFileName.split("\\.");
     String extension = modelFileNameArray[modelFileNameArray.length - 1].toLowerCase();
@@ -152,7 +158,12 @@ public class RNGLModelView extends GLSurfaceView implements RendererDelegate {
     Object3D model = null;
 
     try {
-      InputStream modelStream = getContext().getAssets().open(modelFileName);
+      InputStream modelStream;
+      if (mModelUseFsPath) {
+        modelStream = new FileInputStream(modelFileName);
+      } else {
+        modelStream = getContext().getAssets().open(modelFileName);
+      }
 
       switch (extension) {
         case "obj":
